@@ -48,12 +48,12 @@ Create a new file named `orangebeard.json` in the project root folder, next to `
   "endpoint": "https://app.orangebeard.io/[ORGANIZATION]",
   "token": "[LISTENER TOKEN]",
   "project": "example-project",
-  "testset": "Jest Test set",
-  "description": "Jest run",
+  "testset": "My Vitest set",
+  "description": "A Vitest test run",
   "attributes": [
     {
       "key": "Tool",
-      "value": "Jest"
+      "value": "Vitest"
     }
   ],
   "referenceUrl": "https://docs.orangebeard.io/"
