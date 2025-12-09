@@ -12,8 +12,8 @@
   using the <code>@orangebeard-io/javascript-client</code> listener API.
 </p>
 <p align="center">
-  <a href="https://www.npmjs.com/package/@orangebeard-io/vitest-reporter">
-    <img src="https://img.shields.io/npm/v/@orangebeard-io/vitest-reporter.svg?style=flat-square"
+  <a href="https://www.npmjs.com/package/@orangebeard-io/vitest-orangebeard-reporter">
+    <img src="https://img.shields.io/npm/v/@orangebeard-io/vitest-orangebeard-reporter.svg?style=flat-square"
       alt="NPM Version" />
   </a>
   <a href="https://github.com/orangebeard-io/vitest-reporter/actions">
