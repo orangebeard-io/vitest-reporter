@@ -3,7 +3,7 @@ import OrangebeardVitestReporter from './dist';
 
 export default defineConfig({
   test: {
-    include: ['tests/**/*.spec.ts'],
+    include: ['tests/**/*.spec.ts', 'tests/**/*.test.ts'],
     reporters: [new OrangebeardVitestReporter(), 'default'],
     coverage: {
       enabled: false,

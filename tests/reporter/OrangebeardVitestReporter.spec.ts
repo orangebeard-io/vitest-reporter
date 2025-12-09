@@ -127,6 +127,43 @@ describe('OrangebeardVitestReporter', () => {
     );
   });
 
+  it('uploads recorded artifacts as attachments', async () => {
+    const client = getClient(reporter);
+    const { testCase } = createTestCase('t-3', 'attachment test');
+
+    // mock getBytes to avoid real disk I/O and to control the returned Buffer
+    const getBytesModule = await import('../../src/reporter/utils');
+    const getBytesSpy = vi.spyOn(getBytesModule, 'getBytes').mockResolvedValue(Buffer.from('file-bytes'));
+
+    reporter.onTestRunStart();
+    reporter.onTestCaseReady(testCase as any);
+
+    // simulate a recorded artifact with a path and contentType
+    reporter.onTestCaseArtifactRecord(testCase as any, {
+      path: path.join(process.cwd(), 'artifacts', 'screenshot.png'),
+      contentType: 'image/png',
+    } as any);
+
+    // wait for async attachment upload to be scheduled and processed
+    await vi.waitFor(() => {
+      expect(getBytesSpy).toHaveBeenCalled();
+      expect(client.sendAttachment).toHaveBeenCalledWith(
+        expect.objectContaining({
+          file: expect.objectContaining({
+            name: 'screenshot.png',
+            contentType: 'image/png',
+          }),
+          metaData: expect.objectContaining({
+            testRunUUID: 'run-uuid',
+            testUUID: 'test-uuid',
+          }),
+        }),
+      );
+    });
+
+    getBytesSpy.mockRestore();
+  });
+
   it('records coverage on onCoverage and emits a Coverage report AFTER test on run end', async () => {
     const client = getClient(reporter);
 

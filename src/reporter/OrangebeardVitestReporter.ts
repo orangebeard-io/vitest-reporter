@@ -200,21 +200,29 @@ export class OrangebeardVitestReporter implements Reporter {
     const testUUID = this.tests.get(test.id);
     if (!testUUID) return;
 
-    const path = typeof artifact.path === 'string' ? artifact.path : undefined;
-    const name = (artifact as any).file?.name ?? path ?? 'artifact';
-    const contentType = (artifact as any).contentType ?? 'application/octet-stream';
+    // Vitest's `recordArtifact` can provide a single object with `path`/`contentType`
+    // or an object with an `attachments` array. Normalize to an array of attachments.
+    const attachments: any[] = Array.isArray(artifact.attachments) && artifact.attachments.length > 0
+      ? artifact.attachments
+      : [artifact];
 
-    const logUUID = this.client.log({
-      logFormat: LogFormat.MARKDOWN,
-      logLevel: LogLevel.INFO,
-      logTime: getTime(),
-      message: `Attachment: ${name}`,
-      testRunUUID: this.testRunId,
-      testUUID,
-    });
+    for (const att of attachments) {
+      const path = typeof att.path === 'string' ? att.path : undefined;
+      const name = (att as any).name ?? (att as any).file?.name ?? (path ? path.split(/[\\/]/).pop() : 'artifact');
+      const contentType = (att as any).contentType ?? (artifact as any).contentType ?? 'application/octet-stream';
 
-    if (path) {
-      this.promises.push(this.logAttachmentFromPath(path, contentType, testUUID, logUUID));
+      const logUUID = this.client.log({
+        logFormat: LogFormat.MARKDOWN,
+        logLevel: LogLevel.INFO,
+        logTime: getTime(),
+        message: `Attachment: ${name}`,
+        testRunUUID: this.testRunId,
+        testUUID,
+      });
+
+      if (path) {
+        this.promises.push(this.logAttachmentFromPath(path, contentType, testUUID, logUUID));
+      }
     }
   }
 

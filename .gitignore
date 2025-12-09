@@ -11,6 +11,7 @@ yarn.lock
 /coverage/
 /.turbo/
 /.vite/
+/artifacts/
 
 # Vitest
 .vitest/
