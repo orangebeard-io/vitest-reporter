@@ -1,6 +1,6 @@
 {
-  "name": "vitest-orangebeard-reporter",
-  "version": "1.0.0",
+  "name": "@orangebeard-io/vitest-orangebeard-reporter",
+  "version": "1.0.2",
   "description": "Vitest reporter that sends real-time results to Orangebeard via @orangebeard-io/javascript-client",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
