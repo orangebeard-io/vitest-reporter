@@ -11,6 +11,16 @@
   <a href="https://orangebeard.io" target="_blank" rel="noreferrer">Orangebeard</a>
   using the <code>@orangebeard-io/javascript-client</code> listener API.
 </p>
+<p align="center">
+  <a href="https://www.npmjs.com/package/@orangebeard-io/vitest-reporter">
+    <img src="https://img.shields.io/npm/v/@orangebeard-io/vitest-reporter.svg?style=flat-square"
+      alt="NPM Version" />
+  </a>
+  <a href="https://github.com/orangebeard-io/vitest-reporter/actions">
+    <img src="https://img.shields.io/github/actions/workflow/status/orangebeard-io/vitest-reporter/release.yml?branch=main&style=flat-square"
+      alt="Build Status" />
+  </a>
+</p>
 
 ---
 
@@ -21,22 +31,60 @@
 
 ## Installation
 
-Install the reporter and the Orangebeard JavaScript client:\r
+Install the reporter:  
 
 ```bash
-npm install --save-dev vitest-orangebeard-reporter @orangebeard-io/javascript-client
+npm install --save-dev vitest-orangebeard-reporter
 ```
 
 For local development of this repo, run `npm install` in the project root instead.
 
 ## Configuring Orangebeard
 
-This reporter uses `OrangebeardAsyncV3Client` from `@orangebeard-io/javascript-client`. Configure it the same way as other Orangebeard listeners (Jest, Playwright, etc.):
+Create a new file named `orangebeard.json` in the project root folder, next to `package.json`. Add the following entry:
 
-- Via an `orangebeard.json` file in your project root, **or**
-- Via environment variables (URL, project, API key, testset, description, attributes, ...).
+```JSON
+{
+  "endpoint": "https://app.orangebeard.io/[ORGANIZATION]",
+  "token": "[LISTENER TOKEN]",
+  "project": "example-project",
+  "testset": "Jest Test set",
+  "description": "Jest run",
+  "attributes": [
+    {
+      "key": "Tool",
+      "value": "Jest"
+    }
+  ],
+  "referenceUrl": "https://docs.orangebeard.io/"
+}
 
-See the [Orangebeard documentation](https://docs.orangebeard.io/connecting-test-tools/listener-api-clients) for the full list of options.
+```
+
+__It's good practice__ to omit the token from the json file and get it from your env:
+
+Windows cmd:
+```
+set orangebeard_token=[LISTENER TOKEN]
+```
+Linux/Mac:
+```
+export orangebeard_token=[LISTENER TOKEN]
+```
+
+### Environment properties
+
+Properties can also be set in the build, by passing them as environment variables.  
+It's important to mention that environment variables have precedence over the `orangebeard.json` definition.
+
+```shell
+$ export ORANGEBEARD_ENDPOINT=https://app.orangebeard.io/[ORGANIZATION]
+$ export ORANGEBEARD_TOKEN=XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX
+$ export ORANGEBEARD_PROJECT=example_project
+$ export ORANGEBEARD_TESTSET=Jest testset
+$ export ORANGEBEARD_DESCRIPTION=My awesome testrun
+$ export ORANGEBEARD_ATTRIBUTES=key:value; value;
+```
 
 ## Using the reporter in Vitest
 
