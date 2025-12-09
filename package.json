@@ -4,6 +4,20 @@
   "description": "Vitest reporter that sends real-time results to Orangebeard via @orangebeard-io/javascript-client",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/orangebeard-io/vitest-reporter.git"
+  },
+  "keywords": [
+    "orangebeard",
+    "vitest"
+  ],
+  "author": "Orangebeard.io",
+  "license": "Apache-2.0",
+  "bugs": {
+    "url": "https://github.com/orangebeard-io/vitest-reporter/issues"
+  },
+  "homepage": "https://github.com/orangebeard-io/vitest-reporter#readme",
   "scripts": {
     "build": "tsc -p tsconfig.json",
     "test": "vitest run"
