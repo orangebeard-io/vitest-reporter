@@ -1,0 +1,14 @@
+{
+  "endpoint": "https://app-acc.orangebeard.io/orangebeard",
+  "token": "3f6415c8-50b1-47dc-8eaf-ed6646b8c170",
+  "project": "example-project",
+  "testset": "Vitest reporter tests",
+  "description": "Vitest run",
+  "attributes": [
+    {
+      "key": "Tool",
+      "value": "Vitest"
+    }
+  ],
+  "referenceUrl": "https://docs.orangebeard.io/"
+}
